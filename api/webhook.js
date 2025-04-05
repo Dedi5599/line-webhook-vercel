@@ -3,10 +3,12 @@ export default async function handler(req, res) {
     return res.status(405).send("Method Not Allowed");
   }
 
+  console.log("📥 Incoming request:", JSON.stringify(req.body));  // ✅ เพิ่มบรรทัดนี้
+
   const body = req.body;
 
-  // ✅ เพิ่มตรงนี้ เพื่อให้รองรับ webhook test จาก LINE
-  if (!body.token) {
+  // ✅ รองรับ LINE webhook test
+  if (!body.token && !body.events) {
     return res.status(200).send("✅ LINE Webhook test OK");
   }
 
