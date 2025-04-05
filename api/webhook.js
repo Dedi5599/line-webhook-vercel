@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   }
 
   const webhookMap = {
-    "C8384b60ad365d59bf95ad1c9f9977737": https://discord.com/api/webhooks/1357778681111642333/FsKbZ3pdo9elVOQFlSV-UxBhbIxlVbtXAnr0HH0FzX2zYbRLmKcSdvE-pTG4x8fPYIj9
+    "C8384b60ad365d59bf95ad1c9f9977737": "https://discord.com/api/webhooks/1357786124260610199/h59tUTYS1JTWV9K-inbfRMJ6UIjRPorn8Ek-NzkQ-QvAHecAzGIjuLzgib8ctfZVbl6W"
   };
 
   const deviceNameMap = {
