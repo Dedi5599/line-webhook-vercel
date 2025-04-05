@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     "neocal002": "เครื่องสแกนนิ้วมือ (จุดที่ 2)"
   };
 
-  const lineAccessToken = "ใส่ LINE Channel access token ตรงนี้";
+  const lineAccessToken = "2df1zFuCIrhA0n0jvTPKmlxchDdkPCPAWKDHRKsMHfYEzXZcSsYUESDGaCv1GFXVHSHVSFqeSG2v36ZBa1N66ZaZHLkD8ym7o3Mj4uow33pD71KMpPi4RTg9sMIK3R8VB6E/ri2qwBgxWCFPHUOTTAdB04t89/1O/w1cDnyilFU=";
 
   const now = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
   const fullMessage = `📌 [${deviceNameMap[token] || "ไม่ทราบชื่อเครื่อง"}]\n${message}\n🕓 เวลา: ${now}`;
