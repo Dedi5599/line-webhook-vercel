@@ -22,8 +22,8 @@ export default async function handler(req, res) {
   }
 
   const webhookMap = {
-    "C8384b60ad365d59bf95ad1c9f9977737": "https://discord.com/api/webhooks/1357786124260610199/h59tUTYS1JTWV9K-inbfRMJ6UIjRPorn8Ek-NzkQ-QvAHecAzGIjuLzgib8ctfZVbl6W"
-  };
+  "C8384b60ad365d59bf95ad1c9f9977737": "https://discord.com/api/webhooks/1357786124260610199/h59tUTYS1JtW9K-inbfRMJ6UijRPorn8Ek-NzkQ-QvAHecAzGIjuLzgi8sctfZVb16W"
+};
 
   const deviceNameMap = {
     "C8384b60ad365d59bf95ad1c9f9977737": "เครื่องสแกนหน้า (จุดที่ 1)"
