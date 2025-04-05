@@ -1,12 +1,20 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).send('Method Not Allowed');
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
   }
 
-  const { token, message } = req.body;
+  const body = req.body;
+
+  // ✅ เพิ่มตรงนี้ เพื่อให้รองรับ webhook test จาก LINE
+  if (!body.token) {
+    return res.status(200).send("✅ LINE Webhook test OK");
+  }
+
+  // ดึง token & message ตามปกติ
+  const { token, message } = body;
 
   if (!token || !message) {
-    return res.status(400).send('Missing token or message');
+    return res.status(400).send("Missing token or message");
   }
 
   const webhookMap = {
