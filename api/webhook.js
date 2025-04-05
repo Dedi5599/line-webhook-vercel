@@ -25,9 +25,9 @@ export default async function handler(req, res) {
   };
 
   const lineMap = {
-    "neocal001": "Cxxxxxxxxxxxxxxxxxxxx",
-    "neocal002": "Uxxxxxxxxxxxxxxxxxxxx"
-  };
+  "neocal001": "C8384b60ad365d59bf95ad1c9f9977737", // ✅ groupId
+  "neocal002": "Ufb07cac6da303b840af064bc4350da0f"  // ✅ userId
+};
 
   const deviceNameMap = {
     "neocal001": "เครื่องสแกนหน้า (จุดที่ 1)",
