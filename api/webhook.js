@@ -3,45 +3,40 @@ export default async function handler(req, res) {
     return res.status(405).send("Method Not Allowed");
   }
 
-  console.log("📥 Incoming request:", JSON.stringify(req.body));  // ✅ เพิ่มบรรทัดนี้
-
   const body = req.body;
+
+  console.log("📥 Incoming request:", JSON.stringify(body));
 
   // ✅ รองรับ LINE webhook test
   if (!body.token && !body.events) {
     return res.status(200).send("✅ LINE Webhook test OK");
   }
 
-  // ดึง token & message ตามปกติ
-  const { token, message } = body;
+  // ✅ ดึง message และ groupId จาก LINE
+  const event = body.events?.[0];
+  const message = event?.message?.text;
+  const groupId = event?.source?.groupId;
 
-  if (!token || !message) {
-    return res.status(400).send("Missing token or message");
+  if (!groupId || !message) {
+    return res.status(400).send("Missing groupId or message");
   }
 
   const webhookMap = {
-    "neocal001": "https://discord.com/api/webhooks/xxxx",
-    "neocal002": "https://discord.com/api/webhooks/yyyy"
+    "C8384b60ad365d59bf95ad1c9f9977737": "https://discord.com/api/webhooks/xxxx"
   };
 
-  const lineMap = {
-  "neocal001": "C8384b60ad365d59bf95ad1c9f9977737", // ✅ groupId
-  "neocal002": "Ufb07cac6da303b840af064bc4350da0f"  // ✅ userId
-};
-
   const deviceNameMap = {
-    "neocal001": "เครื่องสแกนหน้า (จุดที่ 1)",
-    "neocal002": "เครื่องสแกนนิ้วมือ (จุดที่ 2)"
+    "C8384b60ad365d59bf95ad1c9f9977737": "เครื่องสแกนหน้า (จุดที่ 1)"
   };
 
   const lineAccessToken = "2df1zFuCIrhA0n0jvTPKmlxchDdkPCPAWKDHRKsMHfYEzXZcSsYUESDGaCv1GFXVHSHVSFqeSG2v36ZBa1N66ZaZHLkD8ym7o3Mj4uow33pD71KMpPi4RTg9sMIK3R8VB6E/ri2qwBgxWCFPHUOTTAdB04t89/1O/w1cDnyilFU=";
 
   const now = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
-  const fullMessage = `📌 [${deviceNameMap[token] || "ไม่ทราบชื่อเครื่อง"}]\n${message}\n🕓 เวลา: ${now}`;
+  const fullMessage = `📌 [${deviceNameMap[groupId] || "ไม่ทราบชื่อเครื่อง"}]\n${message}\n🕓 เวลา: ${now}`;
 
-  // ส่งไป Discord
+  // ส่ง Discord
   try {
-    await fetch(webhookMap[token], {
+    await fetch(webhookMap[groupId], {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ content: fullMessage })
@@ -50,7 +45,7 @@ export default async function handler(req, res) {
     console.error("Discord Error:", err);
   }
 
-  // ส่งไป LINE
+  // ส่ง LINE (ถ้าอยากส่งกลับ)
   try {
     await fetch("https://api.line.me/v2/bot/message/push", {
       method: "POST",
@@ -59,7 +54,7 @@ export default async function handler(req, res) {
         "Authorization": "Bearer " + lineAccessToken
       },
       body: JSON.stringify({
-        to: lineMap[token],
+        to: groupId,
         messages: [{ type: "text", text: fullMessage }]
       })
     });
